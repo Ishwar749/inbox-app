@@ -19,10 +19,10 @@ spring:
         init-query-timeout: 10s
 
 astra.db:
-    id: 023b089b-0819-4a9d-9abd-5b6787c823d9
-    region: asia-south1
-    keyspace: main
-    application.token: AstraCS:vxUyalUHhEahTMiqLettwYPe:2c34e626545bee015c1a0cc53a33bc961c6c782bb03f3e7fb8f99fe92bdfe74b
+  id: 023b089b-0819-4a9d-9abd-5b6787c823d9
+  region: asia-south1
+  keyspace: main
+  application.token: AstraCS:vxUyalUHhEahTMiqLettwYPe:2c34e626545bee015c1a0cc53a33bc961c6c782bb03f3e7fb8f99fe92bdfe74b
 
 datastax.astra:
-    secure-connect-bundle: secure-connect-inbox-app.zip
+  secure-connect-bundle: secure-connect-inbox-app.zip
