@@ -8,6 +8,7 @@ import io.javabrains.inbox.emaillist.EmailListItemKey;
 import io.javabrains.inbox.emaillist.EmailListItemRepository;
 import io.javabrains.inbox.folders.Folder;
 import io.javabrains.inbox.folders.FolderRepository;
+import io.javabrains.inbox.folders.UnreadEmailStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,12 +28,10 @@ import java.util.UUID;
 @RestController
 public class InboxApp {
 
-    @Autowired
-    FolderRepository folderRepository;
-    @Autowired
-    EmailListItemRepository emailListItemRepository;
-    @Autowired
-    EmailRepository emailRepository;
+    @Autowired FolderRepository folderRepository;
+    @Autowired EmailListItemRepository emailListItemRepository;
+    @Autowired EmailRepository emailRepository;
+    @Autowired UnreadEmailStatsRepository unreadEmailStatsRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(InboxApp.class, args);
@@ -53,6 +52,10 @@ public class InboxApp {
         folderRepository.save(new Folder("Ishwar749", "From_Rahul", "blue"));
         folderRepository.save(new Folder("Ishwar749", "Pull_Requests", "green"));
         folderRepository.save(new Folder("Ishwar749", "Build_Mails", "yellow"));
+
+        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
+        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
+        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
 
         for(int i =0; i<10; i++){
             EmailListItemKey key = new EmailListItemKey();
