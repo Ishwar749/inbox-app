@@ -3,6 +3,7 @@ package io.javabrains.inbox;
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 import io.javabrains.inbox.email.Email;
 import io.javabrains.inbox.email.EmailRepository;
+import io.javabrains.inbox.email.EmailService;
 import io.javabrains.inbox.emaillist.EmailListItem;
 import io.javabrains.inbox.emaillist.EmailListItemKey;
 import io.javabrains.inbox.emaillist.EmailListItemRepository;
@@ -29,9 +30,7 @@ import java.util.UUID;
 public class InboxApp {
 
     @Autowired FolderRepository folderRepository;
-    @Autowired EmailListItemRepository emailListItemRepository;
-    @Autowired EmailRepository emailRepository;
-    @Autowired UnreadEmailStatsRepository unreadEmailStatsRepository;
+    @Autowired EmailService emailService;
 
     public static void main(String[] args) {
         SpringApplication.run(InboxApp.class, args);
@@ -53,32 +52,9 @@ public class InboxApp {
         folderRepository.save(new Folder("Ishwar749", "Pull_Requests", "green"));
         folderRepository.save(new Folder("Ishwar749", "Build_Mails", "yellow"));
 
-        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
-        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
-        unreadEmailStatsRepository.incrementUnreadCount("Ishwar749", "Inbox");
-
         for(int i =0; i<10; i++){
-            EmailListItemKey key = new EmailListItemKey();
-            key.setId("Ishwar749");
-            key.setLabel("Inbox");
-            key.setTimeUUID(Uuids.timeBased());
-
-            EmailListItem item = new EmailListItem();
-            item.setKey(key);
-            item.setTo(Arrays.asList("Ishwar749"));
-            item.setSubject("Subject: "+i);
-            item.setUnread(true);
-
-            emailListItemRepository.save(item);
-
-            Email email = new Email();
-            email.setId(key.getTimeUUID());
-            email.setFrom("Ishwar749");
-            email.setSubject(item.getSubject());
-            email.setBody("Body: "+i);
-            email.setTo(item.getTo());
-            emailRepository.save(email);
-        }
+            emailService.sendEmail("Ishwar749", Arrays.asList("Ishwar749", "abc"), "Hello" + i, "Body");
+         }
     }
 
 }

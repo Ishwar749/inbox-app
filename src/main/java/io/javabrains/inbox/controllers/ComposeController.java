@@ -38,6 +38,7 @@ public class ComposeController {
             List<Folder> folders = folderRepository.findAllById(loginId);
             List<Folder> defaultFolders = folderService.fetchDefaultFolders(loginId);
             model.addAttribute("defaultFolders", defaultFolders);
+            model.addAttribute("stats", folderService.mapCountToLabels(loginId));
             if (folders.size() > 0) {
                 model.addAttribute("userFolders", folders);
             }
